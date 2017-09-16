@@ -43,7 +43,7 @@ My project includes the following files:
 ####2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
-python drive.py model.h5
+python drive.py model.h5 run1
 ```
 
 ####3. Submission code is usable and readable
