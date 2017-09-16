@@ -7,8 +7,8 @@
 
 [image1]: ./run1/2017_09_16_05_01_38_397.jpg "Center"
 [image2]: ./run1/2017_09_16_05_01_38_397.jpg "Center"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
+[image3]: ./run1/2017_09_16_05_01_40_352.jpg "Left"
+[image4]: ./run1/2017_09_16_05_01_35_305.jpg "Right"
 [image5]: ./examples/placeholder_small.png "Recovery Image"
 [image6]: ./examples/placeholder_small.png "Normal Image"
 [image7]: ./examples/placeholder_small.png "Flipped Image"
@@ -83,17 +83,9 @@ To capture good driving behavior, I first recorded two laps on track one using c
 
 ![alt text][image2]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+I then recorded the vehicle recovering from the left side and right sides of the road back to center sThese images show what a recovery looks like starting from ... :
 
 ![alt text][image3]
 ![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
 
 
