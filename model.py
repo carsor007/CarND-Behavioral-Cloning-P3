@@ -108,7 +108,7 @@ train_generator = generator( train_samples, batch_size=32 )
 validation_generator = generator( validation_samples, batch_size=32 )
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Convolution2D, Cropping2D
+from keras.layers import Flatten, Dense, Dropout, Lambda, Convolution2D, Cropping2D
 from keras.layers.pooling import MaxPooling2D
 
 model = Sequential()
