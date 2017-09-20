@@ -59,9 +59,7 @@ For details about how I created the training data, see the next section.
 
 ####1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
-
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+The overall strategy for deriving a model architecture was to copy the Nvidia neural network architecture. This network is purpose-built and ideal for the simulator.
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
@@ -75,7 +73,51 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 ####2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes.
+ Below is a code snippet of my final model architecture.
+ ```python
+ # Crop 
+model.add( Cropping2D( cropping=( (50,20), (0,0) ), input_shape=(160,320,3)))
+#Normalize the data.
+model.add( Lambda( lambda x: x/255. - 0.5 ) )
+# Convolution Layers
+model.add( Convolution2D( 24, 5, 5, subsample=(2,2), activation = 'relu' ) )
+model.add( Convolution2D( 36, 5, 5, subsample=(2,2), activation = 'relu' ) )
+model.add( Convolution2D( 48, 5, 5, subsample=(2,2), activation = 'relu' ) )
+model.add( Convolution2D( 64, 3, 3, subsample=(1,1), activation = 'relu' ) )
+model.add( Convolution2D( 64, 3, 3, subsample=(1,1), activation = 'relu' ) )
+# Flatten for transition to fully connected layers.
+model.add( Flatten() )
+# Fully connected layers
+model.add( Dense( 100 ) )
+model.add(Dropout(0.5))
+model.add( Dense( 50 ) )
+model.add( Dense( 10 ) )
+model.add( Dense( 1 ) )
+```
+The model is described in the table below:
+
+| Layer                         |     Description                       |
+|:---------------------:|:---------------------------------------------:|
+| Input                 | 160x320x3 RGB image                                      A
+| Cropping              | Crop top 50 pixels and bottom 20 pixels; output shape = 90x320x3 |
+| Normalization         | Each new pixel value = old pixel value/255 - 0.5      |
+| Convolution 5x5       | 5x5 kernel, 2x2 stride, 24 output channels, output shape = 43x158x24  |
+| RELU                  |                                                       |
+| Convolution 5x5       | 5x5 kernel, 2x2 stride, 36 output channels, output shape = 20x77x36   |
+| RELU                  |                                                       |
+| Convolution 5x5       | 5x5 kernel, 2x2 stride, 48 output channels, output shape = 8x37x48    |
+| RELU                  |                                                       |
+| Convolution 5x5       | 3x3 kernel, 1x1 stride, 64 output channels, output shape = 6x35x64    |
+| RELU                  |                                                       |
+| Convolution 5x5       | 3x3 kernel, 1x1 stride, 64 output channels, output shape = 4x33x64    |
+| RELU                  |                                                       |
+| Flatten               | Input 4x33x64, output 8448    |
+| Fully connected       | Input 8448, output 100        |
+| Dropout               | Set units to zero with probability 0.5 |
+| Fully connected       | Input 100, output 50          |
+| Fully connected       | Input 50, output 10           |
+| Fully connected       | Input 10, output 1 (labels)   |
 
 ####3. Creation of the Training Set & Training Process
 
@@ -89,3 +131,8 @@ I then recorded the vehicle recovering from the left side and right sides of the
 ![alt text][image4]
 
 
+After the collection process, I had 8036 number of data points. I then preprocessed this data by normalizing, centering and cropping as shown in the model description above.
+
+I finally randomly shuffled the data set and put 20% of the data into a validation set.
+
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 as evidenced by convergence of the validation loss.. I used an adam optimizer so that manually training the learning rate wasn't necessary.
